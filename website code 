@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CoolFix AC Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ice: #e0f4ff;
+    --sky: #0ea5e9;
+    --deep: #0c1a2e;
+    --navy: #0f2744;
+    --frost: #cce9f8;
+    --white: #ffffff;
+    --gray: #94a3b8;
+    --accent: #f97316;
+    --card-bg: #132238;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, #1e4d7b 0%, #0c1a2e 70%);
+    z-index: 0;
+  }
+
+  .snowflakes {
+    position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  }
+  .snowflake {
+    position: absolute;
+    color: #7dd3fc;
+    font-size: 1.2rem;
+    animation: fall linear infinite;
+    opacity: 0.4;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(12,26,46,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(14,165,233,0.15);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--sky);
+    letter-spacing: 2px;
+  }
+  .nav-links a {
+    color: var(--frost);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--sky); }
+
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+
+  .badge {
+    display: inline-block;
+    background: rgba(14,165,233,0.15);
+    border: 1px solid rgba(14,165,233,0.4);
+    color: var(--sky);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    line-height: 0.95;
+    color: var(--white);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title span { color: var(--sky); }
+
+  .hero-sub {
+    margin-top: 1.2rem;
+    color: var(--gray);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--sky);
+    color: var(--deep);
+    padding: 0.85rem 2.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,233,0.35); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--frost);
+    padding: 0.85rem 2.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+  }
+  .btn-outline:hover { border-color: var(--sky); color: var(--sky); }
+
+  .stats {
+    position: relative; z-index: 2;
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--sky);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--gray); letter-spacing: 1px; margin-top: 0.2rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    color: var(--sky);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--gray);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ── SERVICES GRID ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(14,165,233,0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sky), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); border-color: rgba(14,165,233,0.4); box-shadow: 0 12px 40px rgba(14,165,233,0.12); }
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+  .service-desc {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+  .service-items {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .service-items li {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--frost);
+    padding: 0.25rem 0;
+  }
+  .service-items li::before {
+    content: '✓';
+    color: var(--sky);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .service-price {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .price-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--sky);
+  }
+  .price-tag span { font-size: 0.8rem; color: var(--gray); font-family: 'DM Sans', sans-serif; }
+  .book-btn {
+    background: rgba(14,165,233,0.1);
+    color: var(--sky);
+    border: 1px solid rgba(14,165,233,0.3);
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .book-btn:hover { background: var(--sky); color: var(--deep); }
+
+  /* ── BOOKING FORM ── */
+  #booking {
+    background: var(--navy);
+    border-radius: 24px;
+    padding: 4rem;
+    margin: 0 auto;
+    max-width: 900px;
+    border: 1px solid rgba(14,165,233,0.15);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.8rem; color: var(--sky); letter-spacing: 1px; text-transform: uppercase; }
+  input, select, textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--sky);
+    background: rgba(14,165,233,0.05);
+  }
+  select option { background: var(--deep); }
+  textarea { resize: vertical; min-height: 90px; }
+
+  /* Time Slots */
+  .time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .time-slot {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    color: var(--frost);
+    user-select: none;
+  }
+  .time-slot:hover { border-color: var(--sky); color: var(--sky); }
+  .time-slot.selected {
+    background: var(--sky);
+    border-color: var(--sky);
+    color: var(--deep);
+    font-weight: 600;
+  }
+  .time-slot.unavailable {
+    opacity: 0.3;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--sky);
+    color: var(--deep);
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* Success toast */
+  .toast {
+    display: none;
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: #10b981;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    z-index: 999;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { transform: translateX(60px); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+  }
+
+  /* ── WHY US ── */
+  .features-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .feature-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.8rem;
+    border: 1px solid rgba(14,165,233,0.08);
+    transition: border-color 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(14,165,233,0.3); }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .feature-title { font-weight: 600; margin-bottom: 0.4rem; }
+  .feature-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gray);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    #booking { padding: 2rem 1.5rem; }
+    .stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="nav">
+  <div class="nav-logo">❄ CoolFix</div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#why">Why Us</a>
+    <a href="#booking">Book Now</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header>
+  <div class="snowflakes" id="snowflakes"></div>
+  <div class="hero-content">
+    <div class="badge">⚡ Same-Day Service Available</div>
+    <h1 class="hero-title">Expert <span>AC</span><br>Technicians</h1>
+    <p class="hero-sub">Professional air conditioner installation, repair, and maintenance — fast, reliable, and affordable. Certified technicians at your doorstep.</p>
+    <div class="hero-cta">
+      <a href="#booking" class="btn-primary">Book a Service</a>
+      <a href="#services" class="btn-outline">View All Services</a>
+    </div>
+    <div class="stats">
+      <div class="stat-item"><div class="stat-num">5K+</div><div class="stat-label">Happy Clients</div></div>
+      <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Our AC Services</h2>
+  <p class="section-sub">From new installations to emergency repairs, we cover every aspect of AC care for homes and businesses.</p>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <div class="service-name">AC Repair</div>
+      <p class="service-desc">Quick diagnosis and repair for all AC brands and models. We fix the problem right the first time.</p>
+      <ul class="service-items">
+        <li>Compressor & coil repair</li>
+        <li>Gas leakage fixing</li>
+        <li>Electrical fault diagnosis</li>
+        <li>Remote & PCB repair</li>
+        <li>Noise & vibration fix</li>
+      </ul>
+      <div class="service-price">
+        <div class="price-tag">₹299 <span>onwards</span></div>
+        <button class="book-btn" onclick="selectService('AC Repair')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🧹</div>
+      <div class="service-name">AC Servicing</div>
+      <p class="service-desc">Deep cleaning and tune-up to restore your AC's peak performance and reduce electricity bills.</p>
+      <ul class="service-items">
+        <li>Filter deep cleaning</li>
+        <li>Coil washing & sanitizing</li>
+        <li>Drain pipe cleaning</li>
+        <li>Gas pressure check</li>
+        <li>Cooling efficiency test</li>
+      </ul>
+      <div class="service-price">
+        <div class="price-tag">₹499 <span>onwards</span></div>
+        <button class="book-btn" onclick="selectService('AC Servicing')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📦</div>
+      <div class="service-name">AC Installation</div>
+      <p class="service-desc">Professional installation of new split, window, or cassette ACs with neat piping and setup.</p>
+      <ul class="service-items">
+        <li>Split AC installation</li>
+        <li>Window AC fitting</li>
+        <li>Copper piping & brackets</li>
+        <li>Electrical wiring setup</li>
+        <li>Test run & demo</li>
+      </ul>
+      <div class="service-price">
+        <div class="price-tag">₹999 <span>onwards</span></div>
+        <button class="book-btn" onclick="selectService('AC Installation')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🔄</div>
+      <div class="service-name">Gas Refilling (Regas)</div>
+      <p class="service-desc">Refrigerant top-up or full recharge for all AC types — R22, R32, R410A gas available.</p>
+      <ul class="service-items">
+        <li>Gas pressure testing</li>
+        <li>Leak detection & sealing</li>
+        <li>R22 / R32 / R410A refill</li>
+        <li>Performance verification</li>
+        <li>Post-refill check</li>
+      </ul>
+      <div class="service-price">
+        <div class="price-tag">₹799 <span>onwards</span></div>
+        <button class="book-btn" onclick="selectService('Gas Refilling')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🚚</div>
+      <div class="service-name">AC Uninstall & Reinstall</div>
+      <p class="service-desc">Safe removal, transport support, and reinstallation during shifting or renovation.</p>
+      <ul class="service-items">
+        <li>Safe dismantling</li>
+        <li>Gas recovery before removal</li>
+        <li>Reinstallation at new location</li>
+        <li>New copper piping if needed</li>
+        <li>Full testing after install</li>
+      </ul>
+      <div class="service-price">
+        <div class="price-tag">₹1,199 <span>onwards</span></div>
+        <button class="book-btn" onclick="selectService('Uninstall & Reinstall')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <div class="service-name">AMC (Annual Maintenance)</div>
+      <p class="service-desc">Year-round peace of mind — scheduled services, free repairs, and priority support in one plan.</p>
+      <ul class="service-items">
+        <li>2 scheduled services/year</li>
+        <li>Priority emergency calls</li>
+        <li>Free labour for repairs</li>
+        <li>Discounts on spare parts</li>
+        <li>Dedicated service manager</li>
+      </ul>
+      <div class="service-price">
+        <div class="price-tag">₹2,499 <span>/year</span></div>
+        <button class="book-btn" onclick="selectService('Annual Maintenance Contract')">Book Now</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Why Us -->
+<section id="why" style="padding-top: 0;">
+  <div class="section-label">Why Choose Us</div>
+  <h2 class="section-title">The CoolFix Difference</h2>
+  <div class="features-row">
+    <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Same-Day Service</div><div class="feature-desc">Book before noon, get service the same day in your area.</div></div>
+    <div class="feature-card"><div class="feature-icon">🏅</div><div class="feature-title">Certified Technicians</div><div class="feature-desc">All our technicians are trained, verified, and background-checked.</div></div>
+    <div class="feature-card"><div class="feature-icon">🛡️</div><div class="feature-title">90-Day Warranty</div><div class="feature-desc">Every repair and service comes with a 90-day service warranty.</div></div>
+    <div class="feature-card"><div class="feature-icon">💰</div><div class="feature-title">Transparent Pricing</div><div class="feature-desc">No hidden charges. You see the price before we start work.</div></div>
+    <div class="feature-card"><div class="feature-icon">📞</div><div class="feature-title">24/7 Support</div><div class="feature-desc">Our helpline is available round the clock for urgent queries.</div></div>
+  </div>
+</section>
+
+<!-- Booking Form -->
+<section style="padding-top: 0;">
+  <div id="booking">
+    <div class="section-label">Easy Booking</div>
+    <h2 class="section-title">Book Your Service</h2>
+    <p class="section-sub">Fill in the details below and we'll confirm your slot within 30 minutes.</p>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="custName" placeholder="Your full name" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="custPhone" placeholder="10-digit mobile number" maxlength="10" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="custEmail" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label>City / Area</label>
+        <input type="text" id="custArea" placeholder="e.g. Pune, Kothrud" />
+      </div>
+      <div class="form-group">
+        <label>Select Service</label>
+        <select id="serviceSelect">
+          <option value="">— Choose a service —</option>
+          <option>AC Repair</option>
+          <option>AC Servicing</option>
+          <option>AC Installation</option>
+          <option>Gas Refilling</option>
+          <option>Uninstall &amp; Reinstall</option>
+          <option>Annual Maintenance Contract</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date" id="serviceDate" />
+      </div>
+      <div class="form-group full">
+        <label>Preferred Time Slot</label>
+        <div class="time-slots" id="timeSlots">
+          <div class="time-slot" onclick="selectSlot(this)">08:00 – 10:00 AM</div>
+          <div class="time-slot" onclick="selectSlot(this)">10:00 – 12:00 PM</div>
+          <div class="time-slot unavailable">12:00 – 02:00 PM</div>
+          <div class="time-slot" onclick="selectSlot(this)">02:00 – 04:00 PM</div>
+          <div class="time-slot" onclick="selectSlot(this)">04:00 – 06:00 PM</div>
+          <div class="time-slot" onclick="selectSlot(this)">06:00 – 08:00 PM</div>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>AC Brand &amp; Issue Description (Optional)</label>
+        <textarea id="issueDesc" placeholder="e.g. Samsung 1.5 ton split AC — not cooling properly for 2 days..."></textarea>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="submitBooking()">✦ Confirm Booking</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 CoolFix AC Services &nbsp;·&nbsp; Pune, Maharashtra &nbsp;·&nbsp; 📞 +91 98765 43210 &nbsp;·&nbsp; coolfix@email.com</p>
+</footer>
+
+<div class="toast" id="toast">✅ Booking Confirmed! We'll call you shortly.</div>
+
+<script>
+  // Snowflakes
+  const container = document.getElementById('snowflakes');
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement('span');
+    s.className = 'snowflake';
+    s.textContent = ['❄','❅','❆'][i % 3];
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDuration = (6 + Math.random() * 10) + 's';
+    s.style.animationDelay = (Math.random() * 8) + 's';
+    s.style.fontSize = (0.7 + Math.random() * 1.2) + 'rem';
+    container.appendChild(s);
+  }
+
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('serviceDate').min = today;
+  document.getElementById('serviceDate').value = today;
+
+  // Select time slot
+  let selectedSlot = '';
+  function selectSlot(el) {
+    if (el.classList.contains('unavailable')) return;
+    document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedSlot = el.textContent.trim();
+  }
+
+  // Pre-select service from card buttons
+  function selectService(name) {
+    document.getElementById('serviceSelect').value = name;
+    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Submit booking
+  function submitBooking() {
+    const name   = document.getElementById('custName').value.trim();
+    const phone  = document.getElementById('custPhone').value.trim();
+    const svc    = document.getElementById('serviceSelect').value;
+    const date   = document.getElementById('serviceDate').value;
+
+    if (!name)  { alert('Please enter your name.'); return; }
+    if (!phone || phone.length < 10) { alert('Please enter a valid 10-digit phone number.'); return; }
+    if (!svc)   { alert('Please select a service.'); return; }
+    if (!date)  { alert('Please select a preferred date.'); return; }
+    if (!selectedSlot) { alert('Please select a preferred time slot.'); return; }
+
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => { toast.style.display = 'none'; }, 4000);
+
+    // Reset form
+    document.getElementById('custName').value = '';
+    document.getElementById('custPhone').value = '';
+    document.getElementById('custEmail').value = '';
+    document.getElementById('custArea').value = '';
+    document.getElementById('serviceSelect').value = '';
+    document.getElementById('serviceDate').value = today;
+    document.getElementById('issueDesc').value = '';
+    document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+    selectedSlot = '';
+  }
+</script>
+</body>
+</html>
